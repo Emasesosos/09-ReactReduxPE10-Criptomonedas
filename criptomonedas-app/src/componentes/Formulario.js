@@ -19,7 +19,7 @@ class Formulario extends Component {
         await axios.get(url)
             .then(respuesta => {
                 const { data } = respuesta;
-                console.log(respuesta);
+                // console.log(respuesta);
                 this.setState({
                     criptomonedas: data.Data,
                 })
@@ -39,7 +39,7 @@ class Formulario extends Component {
     /* Validar que el Usuario eliga las monedas */
     cotizarMoneda = e => {
         e.preventDefault();
-        console.log('Enviando...');
+        // console.log('Enviando...');
 
         // ***** Validar que haya algo en el state
         const { moneda, criptomoneda } = this.state;
@@ -53,12 +53,19 @@ class Formulario extends Component {
                         error: false,
                     })
                 }, 3000);
-            })
+            });
+
+            return;
         }
 
         // ***** Crear el Objeto
+        const cotizacion = {
+            moneda: moneda,
+            criptomoneda: criptomoneda,
+        }
 
         // ***** Enviar los datos al componente App.js para cotizar
+        this.props.cotizarCriptoMoneda(cotizacion);
     }
 
     render() {
